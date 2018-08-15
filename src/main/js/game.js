@@ -7,13 +7,13 @@ class Game extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {status: 'None'};
+        this.state = {};
     }
 
     componentDidMount() {
         axios.get(`/api/status`)
             .then(res => {
-                this.setState({ status : res.data});
+                this.setState({ status : res.data.message});
             })
     }
 

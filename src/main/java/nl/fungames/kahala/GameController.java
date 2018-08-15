@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import nl.fungames.kahala.core.Game;
+import nl.fungames.kahala.core.GameStatus;
 
 @RestController
 @RequestMapping("/api")
@@ -18,7 +19,7 @@ public class GameController {
     }
 
     @GetMapping(path = "/status")
-    public String status() {
-        return "The game is about to start";
+    public GameStatus status() {
+        return new GameStatus();
     }
 }
