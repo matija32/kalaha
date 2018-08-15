@@ -28,39 +28,47 @@ class Game extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {initialized : false, gameStatus : {}};
     }
 
     componentDidMount() {
         axios.get(`/api/status`)
             .then(res => {
-                this.setState({ status : res.data.message});
+                this.setState({initialized : true, gameStatus : res.data});
             })
     }
 
     render() {
+        if (!this.state.initialized) {
+            return (
+                <div>
+                    <div className="status">No game data available</div>
+                </div>
+            )
+        }
+
         return (
             <div>
-                <div className="status">{this.state.status}</div>
+                <div className="status">{this.state.gameStatus.message}</div>
                 <div className="board-row">
                     <label className="player-name">Player 1</label>
-                    <KahalaPit value={-2} />
-                    <NormalPit value={1} />
-                    <NormalPit value={2} />
-                    <NormalPit value={3} />
-                    <NormalPit value={4} />
-                    <NormalPit value={5} />
-                    <NormalPit value={6} />
+                    <KahalaPit value={this.state.gameStatus.statusPerPlayer.ONE.stonesInKahalaPit} />
+                    <NormalPit value={this.state.gameStatus.statusPerPlayer.ONE.stonesInNormalPits[0]} />
+                    <NormalPit value={this.state.gameStatus.statusPerPlayer.ONE.stonesInNormalPits[1]} />
+                    <NormalPit value={this.state.gameStatus.statusPerPlayer.ONE.stonesInNormalPits[2]} />
+                    <NormalPit value={this.state.gameStatus.statusPerPlayer.ONE.stonesInNormalPits[3]} />
+                    <NormalPit value={this.state.gameStatus.statusPerPlayer.ONE.stonesInNormalPits[4]} />
+                    <NormalPit value={this.state.gameStatus.statusPerPlayer.ONE.stonesInNormalPits[5]} />
                 </div>
                 <div className="board-row">
                     <label className="player-name">Player 2</label>
-                    <NormalPit value={1} />
-                    <NormalPit value={2} />
-                    <NormalPit value={3} />
-                    <NormalPit value={4} />
-                    <NormalPit value={5} />
-                    <NormalPit value={6} />
-                    <KahalaPit value={-5} />
+                    <NormalPit value={this.state.gameStatus.statusPerPlayer.TWO.stonesInNormalPits[5]} />
+                    <NormalPit value={this.state.gameStatus.statusPerPlayer.TWO.stonesInNormalPits[4]} />
+                    <NormalPit value={this.state.gameStatus.statusPerPlayer.TWO.stonesInNormalPits[3]} />
+                    <NormalPit value={this.state.gameStatus.statusPerPlayer.TWO.stonesInNormalPits[2]} />
+                    <NormalPit value={this.state.gameStatus.statusPerPlayer.TWO.stonesInNormalPits[1]} />
+                    <NormalPit value={this.state.gameStatus.statusPerPlayer.TWO.stonesInNormalPits[0]} />
+                    <KahalaPit value={this.state.gameStatus.statusPerPlayer.TWO.stonesInKahalaPit} />
                 </div>
                 <button>Start a new game!</button>
             </div>

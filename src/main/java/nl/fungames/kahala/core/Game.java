@@ -1,7 +1,7 @@
 package nl.fungames.kahala.core;
 
+
 import java.util.Arrays;
-import java.util.List;
 
 public class Game {
 
@@ -10,15 +10,15 @@ public class Game {
     }
 
     public GameStatus getStatus(){
-        return new GameStatus();
+        GameStatus gameStatus = new GameStatus();
+
+        gameStatus.getStatusPerPlayer().put(Player.ONE, new PlayerStatus());
+        gameStatus.getStatusPerPlayer().put(Player.TWO, new PlayerStatus());
+
+        gameStatus.getStatusPerPlayer().get(Player.ONE).setStonesInNormalPits(Arrays.asList(6,6,6,6,6,6));
+        gameStatus.getStatusPerPlayer().get(Player.TWO).setStonesInNormalPits(Arrays.asList(6,6,6,6,6,6));
+
+        return gameStatus;
     }
 
-
-    List<Integer> getPitsFor(Player player) {
-        return Arrays.asList(6, 6, 6, 6, 6, 6);
-    }
-
-    int getKahalaFor(Player player) {
-        return 0;
-    }
 }
