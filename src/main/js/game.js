@@ -7,7 +7,7 @@ import './game.css';
 class NormalPit extends React.Component {
     render() {
         return (
-            <button className="square">
+            <button className="normal-pit">
                 {this.props.value}
             </button>
         );
@@ -17,7 +17,7 @@ class NormalPit extends React.Component {
 class KahalaPit extends React.Component {
     render() {
         return (
-            <button className="rectangle">
+            <button className="kahala-pit">
                 {this.props.value}
             </button>
         );
@@ -43,6 +43,7 @@ class Game extends React.Component {
             <div>
                 <div className="status">{this.state.status}</div>
                 <div className="board-row">
+                    <label className="player-name">Player 1</label>
                     <KahalaPit value={-2} />
                     <NormalPit value={1} />
                     <NormalPit value={2} />
@@ -52,6 +53,7 @@ class Game extends React.Component {
                     <NormalPit value={6} />
                 </div>
                 <div className="board-row">
+                    <label className="player-name">Player 2</label>
                     <NormalPit value={1} />
                     <NormalPit value={2} />
                     <NormalPit value={3} />

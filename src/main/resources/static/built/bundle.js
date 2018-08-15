@@ -74,7 +74,7 @@
 	        value: function render() {
 	            return React.createElement(
 	                'button',
-	                { className: 'square' },
+	                { className: 'normal-pit' },
 	                this.props.value
 	            );
 	        }
@@ -97,7 +97,7 @@
 	        value: function render() {
 	            return React.createElement(
 	                'button',
-	                { className: 'rectangle' },
+	                { className: 'kahala-pit' },
 	                this.props.value
 	            );
 	        }
@@ -141,6 +141,11 @@
 	                React.createElement(
 	                    'div',
 	                    { className: 'board-row' },
+	                    React.createElement(
+	                        'label',
+	                        { className: 'player-name' },
+	                        'Player 1'
+	                    ),
 	                    React.createElement(KahalaPit, { value: -2 }),
 	                    React.createElement(NormalPit, { value: 1 }),
 	                    React.createElement(NormalPit, { value: 2 }),
@@ -152,6 +157,11 @@
 	                React.createElement(
 	                    'div',
 	                    { className: 'board-row' },
+	                    React.createElement(
+	                        'label',
+	                        { className: 'player-name' },
+	                        'Player 2'
+	                    ),
 	                    React.createElement(NormalPit, { value: 1 }),
 	                    React.createElement(NormalPit, { value: 2 }),
 	                    React.createElement(NormalPit, { value: 3 }),
@@ -235,7 +245,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n    font: 14px \"Century Gothic\", Futura, sans-serif;\n    margin: 20px;\n}\n\nol, ul {\n    padding-left: 30px;\n}\n\n.board-row:after {\n    clear: both;\n    content: \"\";\n    display: table;\n}\n\n.status {\n    margin-bottom: 10px;\n}\n\n.square {\n    background: #fff;\n    border: 1px solid #999;\n    float: left;\n    font-size: 24px;\n    font-weight: bold;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 34px;\n}\n\n.rectangle {\n    background: #fff;\n    border: 1px solid #999;\n    float: left;\n    font-size: 28px;\n    font-weight: bolder;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 67px;\n}\n\n.square:focus {\n    outline: none;\n}\n\n.kbd-navigation .square:focus {\n    background: #ddd;\n}\n\n.game {\n    display: flex;\n    flex-direction: row;\n}\n\n.game-info {\n    margin-left: 20px;\n}\n", ""]);
+	exports.push([module.id, "body {\n    font: 14px \"Century Gothic\", Futura, sans-serif;\n    margin: 20px;\n}\n\nol, ul {\n    padding-left: 30px;\n}\n\n.board-row:after {\n    clear: both;\n    content: \"\";\n    display: table;\n}\n\n.status {\n    margin-bottom: 10px;\n}\n\n.player-name {\n    margin: 10px;\n    float: left;\n}\n\n\n\n.normal-pit {\n    background: #ffffff;\n    border: 1px solid #999;\n    float: left;\n    font-size: 24px;\n    font-weight: bold;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 34px;\n}\n\n.kahala-pit {\n    background: #ffff00;\n    border: 1px solid #999;\n    float: left;\n    font-size: 28px;\n    font-weight: bolder;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 67px;\n}\n\n.square:focus {\n    outline: none;\n}\n\n.kbd-navigation .square:focus {\n    background: #ddd;\n}\n\n.game {\n    display: flex;\n    flex-direction: row;\n}\n\n.game-info {\n    margin-left: 20px;\n}\n", ""]);
 	
 	// exports
 

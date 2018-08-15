@@ -17,8 +17,15 @@ ol, ul {
     margin-bottom: 10px;
 }
 
-.square {
-    background: #fff;
+.player-name {
+    margin: 10px;
+    float: left;
+}
+
+
+
+.normal-pit {
+    background: #ffffff;
     border: 1px solid #999;
     float: left;
     font-size: 24px;
@@ -32,8 +39,8 @@ ol, ul {
     width: 34px;
 }
 
-.rectangle {
-    background: #fff;
+.kahala-pit {
+    background: #ffff00;
     border: 1px solid #999;
     float: left;
     font-size: 28px;
