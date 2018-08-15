@@ -5,12 +5,20 @@ import java.util.List;
 
 public class Game {
 
+    public void startNew() {
 
-    public List<Integer> getPitsFor(Player player) {
+    }
+
+    public GameStatus getStatus(){
+        return new GameStatus();
+    }
+
+
+    List<Integer> getPitsFor(Player player) {
         return Arrays.asList(6, 6, 6, 6, 6, 6);
     }
 
-    public int getKahalaFor(Player player) {
+    int getKahalaFor(Player player) {
         return 0;
     }
 }

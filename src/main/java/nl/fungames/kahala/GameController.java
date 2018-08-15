@@ -20,6 +20,6 @@ public class GameController {
 
     @GetMapping(path = "/status")
     public GameStatus status() {
-        return new GameStatus();
+        return game.getStatus();
     }
 }
