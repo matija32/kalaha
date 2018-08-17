@@ -26,6 +26,10 @@ class Pit {
         return owner;
     }
 
+    public boolean isOwnedBy(Player player) {
+        return player == owner;
+    }
+
     public void setOwner(Player owner) {
         this.owner = owner;
     }

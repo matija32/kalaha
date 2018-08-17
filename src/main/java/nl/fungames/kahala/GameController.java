@@ -1,6 +1,7 @@
 package nl.fungames.kahala;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,4 +23,10 @@ public class GameController {
     public GameStatus status() {
         return game.getStatus();
     }
+
+    @PostMapping(path = "/play")
+    public void x(){
+
+    }
+
 }

@@ -10,10 +10,6 @@ class Board {
 
     private final int normalPitsPerPlayer;
 
-    Board(){
-        this(6, 6);
-    }
-
     Board(int normalPitsPerPlayer, int startingNumberOfStonesInNormalPits){
         this.normalPitsPerPlayer = normalPitsPerPlayer;
         createPits(startingNumberOfStonesInNormalPits);
@@ -44,11 +40,11 @@ class Board {
     }
 
     Pit getKahalaPitFor(Player player) {
-        return allPits.stream().filter(pit -> pit.getOwner() == player && pit.isKahala()).findAny().get();
+        return allPits.stream().filter(pit -> pit.isOwnedBy(player) && pit.isKahala()).findAny().get();
     }
 
     List<Pit> getNormalPitsFor(Player player){
-        return allPits.stream().filter(pit -> pit.getOwner() == player && !pit.isKahala()).collect(Collectors.toList());
+        return allPits.stream().filter(pit -> pit.isOwnedBy(player) && !pit.isKahala()).collect(Collectors.toList());
     }
 
     private List<Pit> getPits(int firstPit, int lastPit) {
@@ -88,7 +84,7 @@ class Board {
     }
 
     void moveStonesToOpponentsKahala(Pit pit) {
-        moveStonesToKahala(pit, pit.getOwner() == Player.ONE ? Player.TWO : Player.ONE);
+        moveStonesToKahala(pit, pit.isOwnedBy(Player.ONE) ? Player.TWO : Player.ONE);
     }
 
     private void moveStonesToKahala(Pit pit, Player player) {

@@ -39,4 +39,14 @@ public class PitTest {
         assertEquals(0, pit.countStones());
     }
 
+    @Test
+    public void testOwnership() {
+        Pit pit = new Pit();
+
+        pit.setOwner(Player.TWO);
+
+        assertFalse(pit.isOwnedBy(Player.ONE));
+        assertTrue(pit.isOwnedBy(Player.TWO));
+    }
+
 }
