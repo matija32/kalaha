@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class BoardTest {
 
@@ -147,7 +148,15 @@ public class BoardTest {
                 Arrays.asList(0, 0, 0), 0);
 
         assertEquals(board.getNormalPitsFor(Player.TWO).get(2), lastFilledPit);
+    }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testSowing_NotPossibleFromEmptyPit() {
+        Board board = new Board( 3, 0);
+
+        board.getNormalPitsFor(Player.TWO).get(0).takeAll();
+
+        board.sow(Player.TWO, 0);
     }
 
     @Test

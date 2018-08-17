@@ -1,7 +1,10 @@
-package nl.fungames.kahala;
+package nl.fungames.kahala.rest;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,8 +28,15 @@ public class GameController {
     }
 
     @PostMapping(path = "/play")
-    public void x(){
+    public ResponseEntity<String> play(
+            @RequestBody MoveDTO move){
+        game.play(move.getPlayer(), move.getPitId());
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 
+    @PostMapping(path = "/restart")
+    public void restart(){
+        game.restart();
     }
 
 }

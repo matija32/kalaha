@@ -1,6 +1,6 @@
 package nl.fungames.kahala.core;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -89,7 +89,7 @@ public class GameTest {
     public void testGameplay_MakingAMoveEndingInOwnEmptyPit() {
         Board boardMock = mock(Board.class);
         Pit player1NormalPit = createMockPit(1);
-        when(player1NormalPit.getOwner()).thenReturn(Player.ONE);
+        when(player1NormalPit.isOwnedBy(Player.ONE)).thenReturn(true);
         when(boardMock.sow(Player.ONE, 3)).thenReturn(player1NormalPit);
 
         Pit player2OppositePit = createMockPit(3);
@@ -109,7 +109,7 @@ public class GameTest {
     public void testGameplay_MakingAMoveEndingInOpponentsEmptyPit() {
         Board boardMock = mock(Board.class);
         Pit player2NormalPit = createMockPit(1);
-        when(player2NormalPit.getOwner()).thenReturn(Player.TWO);
+        when(player2NormalPit.isOwnedBy(Player.ONE)).thenReturn(false);
         when(boardMock.sow(Player.ONE, 3)).thenReturn(player2NormalPit);
 
         Game game = new Game(() -> boardMock);
@@ -120,6 +120,14 @@ public class GameTest {
         verify(boardMock, never()).moveStonesToOpponentsKahala(any());
 
         assertEquals(Player.TWO, game.whoseTurnIsIt());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGameplay_CannotPlayOnOtherPlayersTurn() {
+        Supplier mockBoardSupplier = mock(Supplier.class);
+        Game game = new Game(mockBoardSupplier);
+
+        game.play(Player.TWO, 4);
     }
 
     @Test
@@ -146,9 +154,13 @@ public class GameTest {
         Pit kahalaPit2 = createMockPit(expectedKahalaPitPlayer2);
         when(boardMock.getKahalaPitFor(eq(Player.TWO))).thenReturn(kahalaPit2);
 
-        List<Pit> normalPits1 = createMockPits(Arrays.asList(6, 6, 6, 6, 6, 6));
+        List<Pit> normalPits1 = createMockPits(expectedNormalPitsPlayer1);
         when(boardMock.getNormalPitsFor(eq(Player.ONE))).thenReturn(normalPits1);
-        List<Pit> normalPits2 = createMockPits(Arrays.asList(6, 6, 6, 6, 6, 6));
+
+        ArrayList<Integer> expectedNormalPitsPlayer2 = new ArrayList<>(expectedNormalPitsPlayer2Reversed);
+        Collections.reverse(expectedNormalPitsPlayer2);
+
+        List<Pit> normalPits2 = createMockPits(expectedNormalPitsPlayer2);
         when(boardMock.getNormalPitsFor(eq(Player.TWO))).thenReturn(normalPits2);
 
         return boardMock;

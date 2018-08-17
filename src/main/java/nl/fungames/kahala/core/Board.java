@@ -52,8 +52,13 @@ class Board {
     }
 
     Pit sow(Player player, int pitIndex){
+        Pit startingPit = getNormalPitsFor(player).get(pitIndex);
+        if (startingPit.isEmpty()) {
+            throw new IllegalArgumentException("Cannot sow from an empty pit");
+        }
+
+        int startingPitIndex = allPits.indexOf(startingPit);
         int kahalaIndexToSkip = allPits.indexOf(getPitOppositeOf(getKahalaPitFor(player)));
-        int startingPitIndex = allPits.indexOf(getNormalPitsFor(player).get(pitIndex));
 
         int stonesInHand = allPits.get(startingPitIndex).takeAll();
         int currentPit = getNextPitToSow(startingPitIndex, kahalaIndexToSkip);

@@ -24,9 +24,11 @@ public class Game {
         this.playerThatHasTheTurn = Player.ONE;
     }
 
-    public Player whoseTurnIsIt() { return playerThatHasTheTurn; }
-
     public void play(Player player, int pitIndex) {
+        if (player != playerThatHasTheTurn) {
+            throw new IllegalArgumentException("It's not Player " + player + "'s turn!");
+        }
+
         Pit lastFilledPit = board.sow(player, pitIndex);
 
         if (lastFilledPit.countStones() == 1 && lastFilledPit.isOwnedBy(playerThatHasTheTurn)){
@@ -56,8 +58,13 @@ public class Game {
 
         gameStatus.setFinished(false);
         gameStatus.setMessage("The game is ON!");
+        gameStatus.setNextOneToPlay(whoseTurnIsIt());
 
         return gameStatus;
+    }
+
+    Player whoseTurnIsIt() {
+        return playerThatHasTheTurn;
     }
 
 }

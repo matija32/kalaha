@@ -49,4 +49,16 @@ public class PitTest {
         assertTrue(pit.isOwnedBy(Player.TWO));
     }
 
+    @Test
+    public void testEmptyPits() {
+        Pit pit = new Pit();
+        pit.add(3);
+
+        assertFalse(pit.isEmpty());
+
+        pit.takeAll();
+
+        assertTrue(pit.isEmpty());
+    }
+
 }

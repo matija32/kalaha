@@ -41,4 +41,8 @@ class Pit {
     public void setAsKahala(boolean kahala) {
         this.kahala = kahala;
     }
+
+    public boolean isEmpty() {
+        return stones == 0;
+    }
 }

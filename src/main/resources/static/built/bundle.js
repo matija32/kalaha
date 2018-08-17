@@ -72,9 +72,13 @@
 	    _createClass(NormalPit, [{
 	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+	
 	            return React.createElement(
 	                'button',
-	                { className: 'normal-pit' },
+	                { className: 'normal-pit', onClick: function onClick() {
+	                        return _this2.props.onClick();
+	                    }, disabled: false },
 	                this.props.value
 	            );
 	        }
@@ -112,24 +116,63 @@
 	    function Game(props) {
 	        _classCallCheck(this, Game);
 	
-	        var _this3 = _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).call(this, props));
+	        var _this4 = _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).call(this, props));
 	
-	        _this3.state = { initialized: false, gameStatus: {} };
-	        return _this3;
+	        _this4.state = { initialized: false, gameStatus: {} };
+	        return _this4;
 	    }
 	
 	    _createClass(Game, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _this4 = this;
+	        key: 'refreshGameStatus',
+	        value: function refreshGameStatus() {
+	            var _this5 = this;
 	
 	            axios.get('/api/status').then(function (res) {
-	                _this4.setState({ initialized: true, gameStatus: res.data });
+	                _this5.setState({ initialized: true, gameStatus: res.data });
 	            });
+	        }
+	    }, {
+	        key: 'startNewGame',
+	        value: function startNewGame() {
+	            var _this6 = this;
+	
+	            axios.post('/api/restart').then(function () {
+	                return _this6.refreshGameStatus();
+	            });
+	        }
+	    }, {
+	        key: 'handleClickOnNormalPit',
+	        value: function handleClickOnNormalPit(player, pitId) {
+	            var _this7 = this;
+	
+	            axios.post('/api/play', {
+	                player: player,
+	                pitId: pitId
+	            }).then(function () {
+	                return _this7.refreshGameStatus();
+	            });
+	        }
+	    }, {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.refreshGameStatus();
+	        }
+	    }, {
+	        key: 'renderNormalPit',
+	        value: function renderNormalPit(player, pitIndex) {
+	            var _this8 = this;
+	
+	            return React.createElement(NormalPit, {
+	                value: this.state.gameStatus.statusPerPlayer[player].stonesInNormalPits[pitIndex],
+	                onClick: function onClick() {
+	                    return _this8.handleClickOnNormalPit(player, pitIndex);
+	                } });
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this9 = this;
+	
 	            if (!this.state.initialized) {
 	                return React.createElement(
 	                    'div',
@@ -156,15 +199,15 @@
 	                    React.createElement(
 	                        'label',
 	                        { className: 'player-name' },
-	                        'Player 1'
+	                        'Player 2'
 	                    ),
-	                    React.createElement(KahalaPit, { value: this.state.gameStatus.statusPerPlayer.ONE.stonesInKahalaPit }),
-	                    React.createElement(NormalPit, { value: this.state.gameStatus.statusPerPlayer.ONE.stonesInNormalPits[0] }),
-	                    React.createElement(NormalPit, { value: this.state.gameStatus.statusPerPlayer.ONE.stonesInNormalPits[1] }),
-	                    React.createElement(NormalPit, { value: this.state.gameStatus.statusPerPlayer.ONE.stonesInNormalPits[2] }),
-	                    React.createElement(NormalPit, { value: this.state.gameStatus.statusPerPlayer.ONE.stonesInNormalPits[3] }),
-	                    React.createElement(NormalPit, { value: this.state.gameStatus.statusPerPlayer.ONE.stonesInNormalPits[4] }),
-	                    React.createElement(NormalPit, { value: this.state.gameStatus.statusPerPlayer.ONE.stonesInNormalPits[5] })
+	                    React.createElement(KahalaPit, { value: this.state.gameStatus.statusPerPlayer.TWO.stonesInKahalaPit }),
+	                    this.renderNormalPit('TWO', 5),
+	                    this.renderNormalPit('TWO', 4),
+	                    this.renderNormalPit('TWO', 3),
+	                    this.renderNormalPit('TWO', 2),
+	                    this.renderNormalPit('TWO', 1),
+	                    this.renderNormalPit('TWO', 0)
 	                ),
 	                React.createElement(
 	                    'div',
@@ -172,19 +215,21 @@
 	                    React.createElement(
 	                        'label',
 	                        { className: 'player-name' },
-	                        'Player 2'
+	                        'Player 1'
 	                    ),
-	                    React.createElement(NormalPit, { value: this.state.gameStatus.statusPerPlayer.TWO.stonesInNormalPits[5] }),
-	                    React.createElement(NormalPit, { value: this.state.gameStatus.statusPerPlayer.TWO.stonesInNormalPits[4] }),
-	                    React.createElement(NormalPit, { value: this.state.gameStatus.statusPerPlayer.TWO.stonesInNormalPits[3] }),
-	                    React.createElement(NormalPit, { value: this.state.gameStatus.statusPerPlayer.TWO.stonesInNormalPits[2] }),
-	                    React.createElement(NormalPit, { value: this.state.gameStatus.statusPerPlayer.TWO.stonesInNormalPits[1] }),
-	                    React.createElement(NormalPit, { value: this.state.gameStatus.statusPerPlayer.TWO.stonesInNormalPits[0] }),
-	                    React.createElement(KahalaPit, { value: this.state.gameStatus.statusPerPlayer.TWO.stonesInKahalaPit })
+	                    this.renderNormalPit('ONE', 0),
+	                    this.renderNormalPit('ONE', 1),
+	                    this.renderNormalPit('ONE', 2),
+	                    this.renderNormalPit('ONE', 3),
+	                    this.renderNormalPit('ONE', 4),
+	                    this.renderNormalPit('ONE', 5),
+	                    React.createElement(KahalaPit, { value: this.state.gameStatus.statusPerPlayer.ONE.stonesInKahalaPit })
 	                ),
 	                React.createElement(
 	                    'button',
-	                    null,
+	                    { onClick: function onClick() {
+	                            return _this9.startNewGame();
+	                        } },
 	                    'Start a new game!'
 	                )
 	            );
@@ -257,7 +302,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n    font: 14px \"Century Gothic\", Futura, sans-serif;\n    margin: 20px;\n}\n\nol, ul {\n    padding-left: 30px;\n}\n\n.board-row:after {\n    clear: both;\n    content: \"\";\n    display: table;\n}\n\n.status {\n    margin-bottom: 10px;\n}\n\n.player-name {\n    margin: 10px;\n    float: left;\n}\n\n.normal-pit {\n    background: #ffffff;\n    border: 1px solid #999;\n    float: left;\n    font-size: 24px;\n    font-weight: bold;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 34px;\n}\n\n.kahala-pit {\n    background: #ffff00;\n    border: 1px solid #999;\n    float: left;\n    font-size: 28px;\n    font-weight: bolder;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 67px;\n}\n\n.square:focus {\n    outline: none;\n}\n\n.kbd-navigation .square:focus {\n    background: #ddd;\n}\n\n.game {\n    display: flex;\n    flex-direction: row;\n}\n\n.game-info {\n    margin-left: 20px;\n}\n", ""]);
+	exports.push([module.id, "body {\n    font: 14px \"Century Gothic\", Futura, sans-serif;\n    margin: 20px;\n}\n\nol, ul {\n    padding-left: 30px;\n}\n\n.board-row:after {\n    clear: both;\n    content: \"\";\n    display: table;\n}\n\n.status {\n    margin-bottom: 10px;\n}\n\n.player-name {\n    margin: 10px;\n    float: left;\n}\n\n.normal-pit {\n    background: #ffffff;\n    border: 1px solid #999;\n    float: left;\n    font-size: 24px;\n    font-weight: normal;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 34px;\n}\n\n.kahala-pit {\n    background: #ffff00;\n    border: 1px solid #999;\n    float: left;\n    font-size: 28px;\n    font-weight: bold;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 67px;\n}\n\n.square:focus {\n    outline: none;\n}\n\n.kbd-navigation .square:focus {\n    background: #ddd;\n}\n\n.game {\n    display: flex;\n    flex-direction: row;\n}\n\n.game-info {\n    margin-left: 20px;\n}\n", ""]);
 	
 	// exports
 
