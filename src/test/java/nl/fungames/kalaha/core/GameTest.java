@@ -14,16 +14,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 
 import org.junit.Test;
-import org.mockito.stubbing.Answer;
 
 public class GameTest {
 
     @Test
     public void testGameStatus_Initial(){
-        Game game = new Game(() -> createFilledMockBoard(
+        Game game = new Game(createFilledMockBoard(
                 0, Arrays.asList(6, 6, 6, 6, 6, 6),
                 Arrays.asList(6, 6, 6, 6, 6, 6), 0)
         );
@@ -63,7 +61,7 @@ public class GameTest {
         when(boardMock.sow(Player.ONE, 3)).thenReturn(player2NormalPit);
         when(boardMock.sow(Player.TWO, 5)).thenReturn(player1NormalPit);
 
-        Game game = new Game(() -> boardMock);
+        Game game = new Game(boardMock);
 
         game.play(Player.ONE, 3);
 
@@ -82,7 +80,7 @@ public class GameTest {
         Pit player1Kalaha = createKalahaPit();
         when(boardMock.sow(Player.ONE, 3)).thenReturn(player1Kalaha);
 
-        Game game = new Game(() -> boardMock);
+        Game game = new Game(boardMock);
 
         game.play(Player.ONE, 3);
 
@@ -100,7 +98,7 @@ public class GameTest {
         Pit player2OppositePit = createMockPit(3);
         when(boardMock.getPitOppositeOf(player1NormalPit)).thenReturn(player2OppositePit);
 
-        Game game = new Game(() -> boardMock);
+        Game game = new Game(boardMock);
 
         game.play(Player.ONE, 3);
 
@@ -117,7 +115,7 @@ public class GameTest {
         when(player2NormalPit.isOwnedBy(Player.ONE)).thenReturn(false);
         when(boardMock.sow(Player.ONE, 3)).thenReturn(player2NormalPit);
 
-        Game game = new Game(() -> boardMock);
+        Game game = new Game(boardMock);
 
         game.play(Player.ONE, 3);
 
@@ -129,7 +127,7 @@ public class GameTest {
 
     @Test
     public void testGameplay_Player1BeginsTheGame(){
-        Game game = new Game(() -> mock(Board.class));
+        Game game = new Game(mock(Board.class));
         assertEquals(Player.ONE, game.whoseTurnIsIt());
     }
 
@@ -142,7 +140,7 @@ public class GameTest {
         when(player2NormalPit.isOwnedBy(Player.TWO)).thenReturn(true);
         when(boardMock.sow(Player.ONE, 1)).thenReturn(player2NormalPit);
 
-        Game game = new Game(() -> boardMock);
+        Game game = new Game(boardMock);
 
         assertEquals(Player.ONE, game.whoseTurnIsIt());
         verifyPitsThatCanBeSowed(game,
@@ -159,8 +157,7 @@ public class GameTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testGameplay_CannotPlayOnOtherPlayersTurn() {
-        Supplier mockBoardSupplier = mock(Supplier.class);
-        Game game = new Game(mockBoardSupplier);
+        Game game = new Game(mock(Board.class));
 
         game.play(Player.TWO, 4);
     }
@@ -178,7 +175,7 @@ public class GameTest {
             return boardMock.getNormalPitsFor(Player.TWO).get(0);
         });
 
-        Game game = new Game(() -> boardMock);
+        Game game = new Game(boardMock);
 
         game.play(Player.ONE, 2);
 
@@ -193,7 +190,7 @@ public class GameTest {
         Board boardMock = createFilledMockBoard(
                 9, Arrays.asList(0, 0, 0),
                 Arrays.asList(0, 0, 0), 11);
-        Game game = new Game(() -> boardMock);
+        Game game = new Game(boardMock);
 
         assertEquals(Messages.ENDGAME_PLAYER_1_WON, game.getStatus().getMessage());
     }
@@ -203,7 +200,7 @@ public class GameTest {
         Board boardMock = createFilledMockBoard(
                 13, Arrays.asList(0, 0, 0),
                 Arrays.asList(0, 0, 0), 11);
-        Game game = new Game(() -> boardMock);
+        Game game = new Game(boardMock);
 
         assertEquals(Messages.ENDGAME_PLAYER_2_WON, game.getStatus().getMessage());
     }
@@ -213,7 +210,7 @@ public class GameTest {
         Board boardMock = createFilledMockBoard(
                 13, Arrays.asList(0, 0, 0),
                 Arrays.asList(0, 0, 0), 13);
-        Game game = new Game(() -> boardMock);
+        Game game = new Game(boardMock);
 
         assertEquals(Messages.ENDGAME_DRAW, game.getStatus().getMessage());
     }
@@ -223,21 +220,21 @@ public class GameTest {
         Board boardMock = createFilledMockBoard(
                 0, Arrays.asList(0, 0, 0, 1, 1, 1),
                 Arrays.asList(0, 6, 0, 6, 0, 6), 0);
-        Game game = new Game(() -> boardMock);
+        Game game = new Game(boardMock);
 
         assertEquals(Messages.GAME_ONGOING, game.getStatus().getMessage());
     }
 
     @Test
-    public void testResettingTheBoard() {
-        Supplier mockBoardSupplier = mock(Supplier.class);
-        Game game = new Game(mockBoardSupplier);
+    public void testStartingNewGame() {
+        Board boardMock = mock(Board.class);
+        Game game = new Game(boardMock);
 
-        game.restart();
-        game.restart();
-        game.restart();
+        game.startNew();
+        game.startNew();
+        game.startNew();
 
-        verify(mockBoardSupplier, times(4)).get();
+        verify(boardMock, times(4)).revertToStartingState();
     }
 
 

@@ -11,6 +11,7 @@ public class KalahaApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		
 	}
 
 }

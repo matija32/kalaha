@@ -28,15 +28,14 @@ public class GameController {
     }
 
     @PostMapping(path = "/play")
-    public ResponseEntity<String> play(
-            @RequestBody MoveDTO move){
+    public ResponseEntity<String> play(@RequestBody MoveDTO move){
         game.play(move.getPlayer(), move.getPitId());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping(path = "/restart")
     public void restart(){
-        game.restart();
+        game.startNew();
     }
 
 }

@@ -2,26 +2,24 @@ package nl.fungames.kalaha.core;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class Game {
 
     private Board board;
-    private final Supplier<Board> boardSupplier;
     private Player playerThatHasTheTurn;
 
     public Game() {
-        this(() -> new Board(6, 6));
+        this(new Board(6, 6));
     }
 
-    Game(Supplier<Board> boardSupplier){
-        this.boardSupplier = boardSupplier;
-        restart();
+    Game(Board board){
+        this.board = board;
+        startNew();
     }
 
-    public void restart() {
-        this.board = boardSupplier.get();
+    public void startNew() {
+        this.board.revertToStartingState();
         this.playerThatHasTheTurn = Player.ONE;
     }
 

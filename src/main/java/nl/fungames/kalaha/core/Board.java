@@ -6,16 +6,20 @@ import java.util.stream.Collectors;
 
 class Board {
 
-    private final ArrayList<Pit> allPits = new ArrayList<>();
+    private ArrayList<Pit> allPits;
 
+    private final int startingNumberOfStonesInNormalPits;
     private final int normalPitsPerPlayer;
 
     Board(int normalPitsPerPlayer, int startingNumberOfStonesInNormalPits){
         this.normalPitsPerPlayer = normalPitsPerPlayer;
-        createPits(startingNumberOfStonesInNormalPits);
+        this.startingNumberOfStonesInNormalPits = startingNumberOfStonesInNormalPits;
+        initializePits();
     }
 
-    private void createPits(int startingNumberOfStonesInNormalPits) {
+    private void initializePits() {
+
+        allPits = new ArrayList<>();
 
         int numberOfKalahaPitsPerPlayer = 1;
         int totalNumberOfPits = 2*(normalPitsPerPlayer + numberOfKalahaPitsPerPlayer);
@@ -47,10 +51,6 @@ class Board {
         return allPits.stream().filter(pit -> pit.isOwnedBy(player) && !pit.isKalaha()).collect(Collectors.toList());
     }
 
-    private List<Pit> getPits(int firstPit, int lastPit) {
-        return allPits.subList(firstPit, lastPit+1);
-    }
-
     Pit sow(Player player, int pitIndex){
         Pit startingPit = getNormalPitsFor(player).get(pitIndex);
         if (startingPit.isEmpty()) {
@@ -76,6 +76,8 @@ class Board {
 
         return allPits.get(currentPit);
     }
+
+
 
     private int getNextPitToSow(int currentPit, int kalahaToSkip) {
         if (currentPit + 1 == kalahaToSkip) {
@@ -107,5 +109,9 @@ class Board {
                         (2*normalPitsPerPlayer - pitIndex);
 
         return allPits.get(oppositePitIndex);
+    }
+
+    public void revertToStartingState() {
+        this.initializePits();
     }
 }

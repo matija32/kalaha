@@ -211,6 +211,19 @@ public class BoardTest {
 
     }
 
+    @Test
+    public void testRevertingToStartingState(){
+        Board board = new Board(6, 6);
+
+        board.sow(Player.ONE, 0);
+        board.sow(Player.TWO, 0);
+
+        board.revertToStartingState();
+
+        verifyBoardState(board,
+                0, Arrays.asList(6, 6, 6, 6, 6, 6),
+                Arrays.asList(6, 6, 6, 6, 6, 6), 0);
+    }
 
     private void verifyBoardState(
             Board board,
