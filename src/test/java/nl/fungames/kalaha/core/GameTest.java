@@ -1,4 +1,4 @@
-package nl.fungames.kahala.core;
+package nl.fungames.kalaha.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -38,9 +38,9 @@ public class GameTest {
         return pits;
     }
 
-    private Pit createKahalaPit() {
+    private Pit createKalahaPit() {
         Pit pit = mock(Pit.class);
-        when(pit.isKahala()).thenReturn(true);
+        when(pit.isKalaha()).thenReturn(true);
         return pit;
     }
 
@@ -72,10 +72,10 @@ public class GameTest {
     }
 
     @Test
-    public void testGameplay_MakingAMoveEndingInOwnKahalaPit() {
+    public void testGameplay_MakingAMoveEndingInOwnKalahaPit() {
         Board boardMock = mock(Board.class);
-        Pit player1Kahala = createKahalaPit();
-        when(boardMock.sow(Player.ONE, 3)).thenReturn(player1Kahala);
+        Pit player1Kalaha = createKalahaPit();
+        when(boardMock.sow(Player.ONE, 3)).thenReturn(player1Kalaha);
 
         Game game = new Game(() -> boardMock);
 
@@ -99,8 +99,8 @@ public class GameTest {
 
         game.play(Player.ONE, 3);
 
-        verify(boardMock, times(1)).moveStonesToOwnKahala(player1NormalPit);
-        verify(boardMock, times(1)).moveStonesToOpponentsKahala(player2OppositePit);
+        verify(boardMock, times(1)).moveStonesToOwnKalaha(player1NormalPit);
+        verify(boardMock, times(1)).moveStonesToOpponentsKalaha(player2OppositePit);
 
         assertEquals(Player.TWO, game.whoseTurnIsIt());
     }
@@ -116,8 +116,8 @@ public class GameTest {
 
         game.play(Player.ONE, 3);
 
-        verify(boardMock, never()).moveStonesToOwnKahala(any());
-        verify(boardMock, never()).moveStonesToOpponentsKahala(any());
+        verify(boardMock, never()).moveStonesToOwnKalaha(any());
+        verify(boardMock, never()).moveStonesToOpponentsKalaha(any());
 
         assertEquals(Player.TWO, game.whoseTurnIsIt());
     }
@@ -144,15 +144,15 @@ public class GameTest {
 
 
     Board createFilledMockBoard(
-            int expectedKahalaPitPlayer2, List<Integer> expectedNormalPitsPlayer2Reversed,
-            List<Integer> expectedNormalPitsPlayer1, int expectedKahalaPitPlayer1){
+            int expectedKalahaPitPlayer2, List<Integer> expectedNormalPitsPlayer2Reversed,
+            List<Integer> expectedNormalPitsPlayer1, int expectedKalahaPitPlayer1){
 
         Board boardMock = mock(Board.class);
 
-        Pit kahalaPit1 = createMockPit(expectedKahalaPitPlayer1);
-        when(boardMock.getKahalaPitFor(eq(Player.ONE))).thenReturn(kahalaPit1);
-        Pit kahalaPit2 = createMockPit(expectedKahalaPitPlayer2);
-        when(boardMock.getKahalaPitFor(eq(Player.TWO))).thenReturn(kahalaPit2);
+        Pit kalahaPit1 = createMockPit(expectedKalahaPitPlayer1);
+        when(boardMock.getKalahaPitFor(eq(Player.ONE))).thenReturn(kalahaPit1);
+        Pit kalahaPit2 = createMockPit(expectedKalahaPitPlayer2);
+        when(boardMock.getKalahaPitFor(eq(Player.TWO))).thenReturn(kalahaPit2);
 
         List<Pit> normalPits1 = createMockPits(expectedNormalPitsPlayer1);
         when(boardMock.getNormalPitsFor(eq(Player.ONE))).thenReturn(normalPits1);
@@ -169,11 +169,11 @@ public class GameTest {
 
     private void verifyGameStatus(
             Game game,
-            int expectedKahalaPitPlayer2, List<Integer> expectedNormalPitsPlayer2Reversed,
-            List<Integer> expectedNormalPitsPlayer1, int expectedKahalaPitPlayer1) {
+            int expectedKalahaPitPlayer2, List<Integer> expectedNormalPitsPlayer2Reversed,
+            List<Integer> expectedNormalPitsPlayer1, int expectedKalahaPitPlayer1) {
 
-        assertEquals(expectedKahalaPitPlayer1, game.getStatus().getStatusPerPlayer().get(Player.ONE).getStonesInKahalaPit());
-        assertEquals(expectedKahalaPitPlayer2, game.getStatus().getStatusPerPlayer().get(Player.TWO).getStonesInKahalaPit());
+        assertEquals(expectedKalahaPitPlayer1, game.getStatus().getStatusPerPlayer().get(Player.ONE).getStonesInKalahaPit());
+        assertEquals(expectedKalahaPitPlayer2, game.getStatus().getStatusPerPlayer().get(Player.TWO).getStonesInKalahaPit());
 
         assertEquals(expectedNormalPitsPlayer1, game.getStatus().getStatusPerPlayer().get(Player.ONE).getStonesInNormalPits());
 

@@ -1,4 +1,4 @@
-package nl.fungames.kahala.core;
+package nl.fungames.kalaha.core;
 
 public enum Player {
     ONE,

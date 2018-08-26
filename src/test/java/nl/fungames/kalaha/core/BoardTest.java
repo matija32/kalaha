@@ -1,4 +1,4 @@
-package nl.fungames.kahala.core;
+package nl.fungames.kalaha.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class BoardTest {
 
@@ -29,23 +28,23 @@ public class BoardTest {
 
         Board board = new Board( 4, 5);
 
-        Pit kahalaPit1 = board.getKahalaPitFor(Player.ONE);
-        assertEquals(Player.ONE, kahalaPit1.getOwner());
-        assertTrue(kahalaPit1.isKahala());
+        Pit kalahaPit1 = board.getKalahaPitFor(Player.ONE);
+        assertEquals(Player.ONE, kalahaPit1.getOwner());
+        assertTrue(kalahaPit1.isKalaha());
 
-        Pit kahalaPit2 = board.getKahalaPitFor(Player.TWO);
-        assertEquals(Player.TWO, kahalaPit2.getOwner());
-        assertTrue(kahalaPit2.isKahala());
+        Pit kalahaPit2 = board.getKalahaPitFor(Player.TWO);
+        assertEquals(Player.TWO, kalahaPit2.getOwner());
+        assertTrue(kalahaPit2.isKalaha());
 
         assertEquals(4, board.getNormalPitsFor(Player.ONE).size());
         assertEquals(4, board.getNormalPitsFor(Player.TWO).size());
 
-        assertTrue(board.getNormalPitsFor(Player.ONE).stream().allMatch(pit -> pit.isOwnedBy(Player.ONE) && !pit.isKahala()));
-        assertTrue(board.getNormalPitsFor(Player.TWO).stream().allMatch(pit -> pit.isOwnedBy(Player.TWO) && !pit.isKahala()));
+        assertTrue(board.getNormalPitsFor(Player.ONE).stream().allMatch(pit -> pit.isOwnedBy(Player.ONE) && !pit.isKalaha()));
+        assertTrue(board.getNormalPitsFor(Player.TWO).stream().allMatch(pit -> pit.isOwnedBy(Player.TWO) && !pit.isKalaha()));
     }
 
     @Test
-    public void testSowing_FillsPlayer1Kahala() {
+    public void testSowing_FillsPlayer1Kalaha() {
         Board board = new Board(6, 6);
 
         Pit lastFilledPit = board.sow(Player.ONE, 5);
@@ -59,7 +58,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testSowing_FillsPlayer2Kahala() {
+    public void testSowing_FillsPlayer2Kalaha() {
         Board board = new Board(6, 6);
 
         Pit lastFilledPit = board.sow(Player.TWO, 5);
@@ -72,7 +71,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testSowing_SkipsPlayer2Kahala() {
+    public void testSowing_SkipsPlayer2Kalaha() {
         ArrayList<Pit> pits = new ArrayList<>();
         Board board = new Board( 2, 0);
 
@@ -92,7 +91,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testSowing_SkipsPlayer1Kahala() {
+    public void testSowing_SkipsPlayer1Kalaha() {
         ArrayList<Pit> pits = new ArrayList<>();
         Board board = new Board( 2, 0);
 
@@ -160,16 +159,16 @@ public class BoardTest {
     }
 
     @Test
-    public void testMovingStonesToOwnKahala() {
+    public void testMovingStonesToOwnKalaha() {
         Board board = new Board( 3, 3);
 
         verifyBoardState(board,
                 0, Arrays.asList(3, 3, 3),
                 Arrays.asList(3, 3, 3), 0);
 
-        board.moveStonesToOwnKahala(board.getNormalPitsFor(Player.ONE).get(0));
-        board.moveStonesToOwnKahala(board.getNormalPitsFor(Player.ONE).get(2));
-        board.moveStonesToOwnKahala(board.getNormalPitsFor(Player.TWO).get(2));
+        board.moveStonesToOwnKalaha(board.getNormalPitsFor(Player.ONE).get(0));
+        board.moveStonesToOwnKalaha(board.getNormalPitsFor(Player.ONE).get(2));
+        board.moveStonesToOwnKalaha(board.getNormalPitsFor(Player.TWO).get(2));
 
         verifyBoardState(board,
                 3, Arrays.asList(0, 3, 3),
@@ -177,16 +176,16 @@ public class BoardTest {
     }
 
     @Test
-    public void testMovingStonesToOpponentsKahala() {
+    public void testMovingStonesToOpponentsKalaha() {
         Board board = new Board( 3, 3);
 
         verifyBoardState(board,
                 0, Arrays.asList(3, 3, 3),
                 Arrays.asList(3, 3, 3), 0);
 
-        board.moveStonesToOpponentsKahala(board.getNormalPitsFor(Player.ONE).get(1));
-        board.moveStonesToOpponentsKahala(board.getNormalPitsFor(Player.TWO).get(0));
-        board.moveStonesToOpponentsKahala(board.getNormalPitsFor(Player.TWO).get(1));
+        board.moveStonesToOpponentsKalaha(board.getNormalPitsFor(Player.ONE).get(1));
+        board.moveStonesToOpponentsKalaha(board.getNormalPitsFor(Player.TWO).get(0));
+        board.moveStonesToOpponentsKalaha(board.getNormalPitsFor(Player.TWO).get(1));
 
 
         verifyBoardState(board,
@@ -207,19 +206,19 @@ public class BoardTest {
         Pit oppositePit3 = board.getPitOppositeOf(board.getNormalPitsFor(Player.ONE).get(1));
         assertEquals(board.getNormalPitsFor(Player.TWO).get(4), oppositePit3);
 
-        Pit oppositePit4 = board.getPitOppositeOf(board.getKahalaPitFor(Player.ONE));
-        assertEquals(board.getKahalaPitFor(Player.TWO), oppositePit4);
+        Pit oppositePit4 = board.getPitOppositeOf(board.getKalahaPitFor(Player.ONE));
+        assertEquals(board.getKalahaPitFor(Player.TWO), oppositePit4);
 
     }
 
 
     private void verifyBoardState(
             Board board,
-            int expectedKahalaPitPlayer2, List<Integer> expectedNormalPitsPlayer2Reversed,
-            List<Integer> expectedNormalPitsPlayer1, int expectedKahalaPitPlayer1) {
+            int expectedKalahaPitPlayer2, List<Integer> expectedNormalPitsPlayer2Reversed,
+            List<Integer> expectedNormalPitsPlayer1, int expectedKalahaPitPlayer1) {
 
-        assertEquals(expectedKahalaPitPlayer1, board.getKahalaPitFor(Player.ONE).countStones());
-        assertEquals(expectedKahalaPitPlayer2, board.getKahalaPitFor(Player.TWO).countStones());
+        assertEquals(expectedKalahaPitPlayer1, board.getKalahaPitFor(Player.ONE).countStones());
+        assertEquals(expectedKalahaPitPlayer2, board.getKalahaPitFor(Player.TWO).countStones());
 
         assertEquals(expectedNormalPitsPlayer1, board.getNormalPitsFor(Player.ONE).stream().map(Pit::countStones).collect(Collectors.toList()));
 

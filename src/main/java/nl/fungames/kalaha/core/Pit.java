@@ -1,10 +1,10 @@
-package nl.fungames.kahala.core;
+package nl.fungames.kalaha.core;
 
 class Pit {
     private int stones = 0;
 
     private Player owner;
-    private boolean kahala;
+    private boolean kalaha;
 
     int takeAll() {
         int stonesInHand = stones;
@@ -34,12 +34,12 @@ class Pit {
         this.owner = owner;
     }
 
-    public boolean isKahala() {
-        return kahala;
+    public boolean isKalaha() {
+        return kalaha;
     }
 
-    public void setAsKahala(boolean kahala) {
-        this.kahala = kahala;
+    public void setAsKalaha(boolean kalaha) {
+        this.kalaha = kalaha;
     }
 
     public boolean isEmpty() {

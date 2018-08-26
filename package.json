@@ -1,23 +1,23 @@
 {
-  "name": "kahala-game",
+  "name": "kalaha-game",
   "version": "0.1.0",
-  "description": "kahala the game",
+  "description": "kalaha the game",
   "repository": {
     "type": "git",
-    "url": "git@github.com:matija32/kahala.git"
+    "url": "git@github.com:matija32/kalaha.git"
   },
   "keywords": [
     "rest",
     "spring",
     "react",
-    "kahala"
+    "kalaha"
   ],
   "author": "Matija Lukic",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/matija32/kahala/issues"
+    "url": "https://github.com/matija32/kalaha/issues"
   },
-  "homepage": "https://github.com/matija32/kahala",
+  "homepage": "https://github.com/matija32/kalaha",
   "dependencies": {
     "axios": "^0.18.0",
     "css-loader": "^1.0.0",

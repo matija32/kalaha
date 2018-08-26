@@ -1,4 +1,4 @@
-package nl.fungames.kahala.rest;
+package nl.fungames.kalaha.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import nl.fungames.kahala.core.Game;
-import nl.fungames.kahala.core.GameStatus;
+import nl.fungames.kalaha.core.Game;
+import nl.fungames.kalaha.core.GameStatus;
 
 @RestController
 @RequestMapping("/api")

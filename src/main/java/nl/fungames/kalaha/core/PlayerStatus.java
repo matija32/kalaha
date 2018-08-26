@@ -1,4 +1,4 @@
-package nl.fungames.kahala.core;
+package nl.fungames.kalaha.core;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,7 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PlayerStatus {
 
-    private int stonesInKahalaPit = 0;
+    private int stonesInKalahaPit = 0;
     private List<Integer> stonesInNormalPits = Collections.emptyList();
 
 }

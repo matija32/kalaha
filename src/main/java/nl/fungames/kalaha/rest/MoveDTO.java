@@ -1,8 +1,8 @@
-package nl.fungames.kahala.rest;
+package nl.fungames.kalaha.rest;
 
 import lombok.Getter;
 import lombok.Setter;
-import nl.fungames.kahala.core.Player;
+import nl.fungames.kalaha.core.Player;
 
 @Getter
 @Setter

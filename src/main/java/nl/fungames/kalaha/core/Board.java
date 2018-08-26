@@ -1,4 +1,4 @@
-package nl.fungames.kahala.core;
+package nl.fungames.kalaha.core;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,34 +17,34 @@ class Board {
 
     private void createPits(int startingNumberOfStonesInNormalPits) {
 
-        int numberOfKahalaPitsPerPlayer = 1;
-        int totalNumberOfPits = 2*(normalPitsPerPlayer + numberOfKahalaPitsPerPlayer);
+        int numberOfKalahaPitsPerPlayer = 1;
+        int totalNumberOfPits = 2*(normalPitsPerPlayer + numberOfKalahaPitsPerPlayer);
 
-        int kahalaIndexPitForPlayer1 = normalPitsPerPlayer;
-        int kahalaPitIndexForPlayer2 = 2*normalPitsPerPlayer + 1;
+        int kalahaIndexPitForPlayer1 = normalPitsPerPlayer;
+        int kalahaPitIndexForPlayer2 = 2*normalPitsPerPlayer + 1;
 
         for (int i = 0; i < totalNumberOfPits; i++) {
             Pit pit = new Pit();
             allPits.add(pit);
 
-            boolean isKahalaPit = (i == kahalaIndexPitForPlayer1) || (i == kahalaPitIndexForPlayer2);
-            pit.setAsKahala(isKahalaPit);
+            boolean isKalahaPit = (i == kalahaIndexPitForPlayer1) || (i == kalahaPitIndexForPlayer2);
+            pit.setAsKalaha(isKalahaPit);
 
-            if (!isKahalaPit){
+            if (!isKalahaPit){
                 pit.add(startingNumberOfStonesInNormalPits);
             }
 
-            boolean belongsToPlayer1 = i <= kahalaIndexPitForPlayer1;
+            boolean belongsToPlayer1 = i <= kalahaIndexPitForPlayer1;
             pit.setOwner(belongsToPlayer1 ? Player.ONE : Player.TWO);
         }
     }
 
-    Pit getKahalaPitFor(Player player) {
-        return allPits.stream().filter(pit -> pit.isOwnedBy(player) && pit.isKahala()).findAny().get();
+    Pit getKalahaPitFor(Player player) {
+        return allPits.stream().filter(pit -> pit.isOwnedBy(player) && pit.isKalaha()).findAny().get();
     }
 
     List<Pit> getNormalPitsFor(Player player){
-        return allPits.stream().filter(pit -> pit.isOwnedBy(player) && !pit.isKahala()).collect(Collectors.toList());
+        return allPits.stream().filter(pit -> pit.isOwnedBy(player) && !pit.isKalaha()).collect(Collectors.toList());
     }
 
     private List<Pit> getPits(int firstPit, int lastPit) {
@@ -58,10 +58,10 @@ class Board {
         }
 
         int startingPitIndex = allPits.indexOf(startingPit);
-        int kahalaIndexToSkip = allPits.indexOf(getPitOppositeOf(getKahalaPitFor(player)));
+        int kalahaIndexToSkip = allPits.indexOf(getPitOppositeOf(getKalahaPitFor(player)));
 
         int stonesInHand = allPits.get(startingPitIndex).takeAll();
-        int currentPit = getNextPitToSow(startingPitIndex, kahalaIndexToSkip);
+        int currentPit = getNextPitToSow(startingPitIndex, kalahaIndexToSkip);
 
         while (true){
             stonesInHand--;
@@ -71,38 +71,38 @@ class Board {
                 break;
             }
 
-            currentPit = getNextPitToSow(currentPit, kahalaIndexToSkip);
+            currentPit = getNextPitToSow(currentPit, kalahaIndexToSkip);
         }
 
         return allPits.get(currentPit);
     }
 
-    private int getNextPitToSow(int currentPit, int kahalaToSkip) {
-        if (currentPit + 1 == kahalaToSkip) {
-            return getNextPitToSow(currentPit+1, kahalaToSkip);
+    private int getNextPitToSow(int currentPit, int kalahaToSkip) {
+        if (currentPit + 1 == kalahaToSkip) {
+            return getNextPitToSow(currentPit+1, kalahaToSkip);
         }
         else return (currentPit + 1) % allPits.size();
     }
 
-    void moveStonesToOwnKahala(Pit pit) {
-        moveStonesToKahala(pit, pit.getOwner());
+    void moveStonesToOwnKalaha(Pit pit) {
+        moveStonesToKalaha(pit, pit.getOwner());
     }
 
-    void moveStonesToOpponentsKahala(Pit pit) {
-        moveStonesToKahala(pit, pit.isOwnedBy(Player.ONE) ? Player.TWO : Player.ONE);
+    void moveStonesToOpponentsKalaha(Pit pit) {
+        moveStonesToKalaha(pit, pit.isOwnedBy(Player.ONE) ? Player.TWO : Player.ONE);
     }
 
-    private void moveStonesToKahala(Pit pit, Player player) {
+    private void moveStonesToKalaha(Pit pit, Player player) {
         int stonesInHand = pit.takeAll();
-        Pit kahala = getKahalaPitFor(player);
-        kahala.add(stonesInHand);
+        Pit kalaha = getKalahaPitFor(player);
+        kalaha.add(stonesInHand);
     }
 
     Pit getPitOppositeOf(Pit pit) {
         int totalNumberOfPits = allPits.size();
         int pitIndex = allPits.indexOf(pit);
 
-        int oppositePitIndex = pit.isKahala() ?
+        int oppositePitIndex = pit.isKalaha() ?
                         (pitIndex + totalNumberOfPits /2) % totalNumberOfPits :
                         (2*normalPitsPerPlayer - pitIndex);
 

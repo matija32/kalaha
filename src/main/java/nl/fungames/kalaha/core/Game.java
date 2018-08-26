@@ -1,4 +1,4 @@
-package nl.fungames.kahala.core;
+package nl.fungames.kalaha.core;
 
 
 import java.util.function.Supplier;
@@ -32,11 +32,11 @@ public class Game {
         Pit lastFilledPit = board.sow(player, pitIndex);
 
         if (lastFilledPit.countStones() == 1 && lastFilledPit.isOwnedBy(playerThatHasTheTurn)){
-            board.moveStonesToOwnKahala(lastFilledPit);
-            board.moveStonesToOpponentsKahala(board.getPitOppositeOf(lastFilledPit));
+            board.moveStonesToOwnKalaha(lastFilledPit);
+            board.moveStonesToOpponentsKalaha(board.getPitOppositeOf(lastFilledPit));
         }
 
-        if (!lastFilledPit.isKahala()) {
+        if (!lastFilledPit.isKalaha()) {
             playerThatHasTheTurn = playerThatHasTheTurn == Player.ONE ? Player.TWO : Player.ONE;
         }
     }
@@ -47,13 +47,13 @@ public class Game {
         gameStatus.getStatusPerPlayer().put(
                 Player.ONE,
                 new PlayerStatus(
-                        board.getKahalaPitFor(Player.ONE).countStones(),
+                        board.getKalahaPitFor(Player.ONE).countStones(),
                         board.getNormalPitsFor(Player.ONE).stream().map(Pit::countStones).collect(Collectors.toList())));
 
         gameStatus.getStatusPerPlayer().put(
                 Player.TWO,
                 new PlayerStatus(
-                        board.getKahalaPitFor(Player.TWO).countStones(),
+                        board.getKalahaPitFor(Player.TWO).countStones(),
                         board.getNormalPitsFor(Player.TWO).stream().map(Pit::countStones).collect(Collectors.toList())));
 
         gameStatus.setFinished(false);

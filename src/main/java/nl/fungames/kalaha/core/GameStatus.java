@@ -1,7 +1,6 @@
-package nl.fungames.kahala.core;
+package nl.fungames.kalaha.core;
 
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,8 +1,7 @@
-package nl.fungames.kahala.core;
+package nl.fungames.kalaha.core;
 
 import static org.junit.Assert.*;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 public class PitTest {

@@ -14,10 +14,10 @@ class NormalPit extends React.Component {
     }
 }
 
-class KahalaPit extends React.Component {
+class KalahaPit extends React.Component {
     render() {
         return (
-            <button className="kahala-pit">
+            <button className="kalaha-pit">
                 {this.props.value}
             </button>
         );
@@ -73,7 +73,7 @@ class Game extends React.Component {
                 <div className="status">{this.state.gameStatus.message}</div>
                 <div className="board-row">
                     <label className="player-name">Player 2</label>
-                    <KahalaPit value={this.state.gameStatus.statusPerPlayer.TWO.stonesInKahalaPit} />
+                    <KalahaPit value={this.state.gameStatus.statusPerPlayer.TWO.stonesInKalahaPit} />
                     {this.renderNormalPit('TWO', 5)}
                     {this.renderNormalPit('TWO', 4)}
                     {this.renderNormalPit('TWO', 3)}
@@ -89,7 +89,7 @@ class Game extends React.Component {
                     {this.renderNormalPit('ONE', 3)}
                     {this.renderNormalPit('ONE', 4)}
                     {this.renderNormalPit('ONE', 5)}
-                    <KahalaPit value={this.state.gameStatus.statusPerPlayer.ONE.stonesInKahalaPit} />
+                    <KalahaPit value={this.state.gameStatus.statusPerPlayer.ONE.stonesInKalahaPit} />
                 </div>
                 <button onClick={() => this.startNewGame()}>Start a new game!</button>
             </div>

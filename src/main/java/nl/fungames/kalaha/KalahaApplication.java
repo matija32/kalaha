@@ -1,12 +1,12 @@
-package nl.fungames.kahala;
+package nl.fungames.kalaha;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class KahalaApplication {
+public class KalahaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(KahalaApplication.class, args);
+		SpringApplication.run(KalahaApplication.class, args);
 	}
 }

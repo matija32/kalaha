@@ -87,27 +87,27 @@
 	    return NormalPit;
 	}(React.Component);
 	
-	var KahalaPit = function (_React$Component2) {
-	    _inherits(KahalaPit, _React$Component2);
+	var KalahaPit = function (_React$Component2) {
+	    _inherits(KalahaPit, _React$Component2);
 	
-	    function KahalaPit() {
-	        _classCallCheck(this, KahalaPit);
+	    function KalahaPit() {
+	        _classCallCheck(this, KalahaPit);
 	
-	        return _possibleConstructorReturn(this, (KahalaPit.__proto__ || Object.getPrototypeOf(KahalaPit)).apply(this, arguments));
+	        return _possibleConstructorReturn(this, (KalahaPit.__proto__ || Object.getPrototypeOf(KalahaPit)).apply(this, arguments));
 	    }
 	
-	    _createClass(KahalaPit, [{
+	    _createClass(KalahaPit, [{
 	        key: 'render',
 	        value: function render() {
 	            return React.createElement(
 	                'button',
-	                { className: 'kahala-pit' },
+	                { className: 'kalaha-pit' },
 	                this.props.value
 	            );
 	        }
 	    }]);
 	
-	    return KahalaPit;
+	    return KalahaPit;
 	}(React.Component);
 	
 	var Game = function (_React$Component3) {
@@ -201,7 +201,7 @@
 	                        { className: 'player-name' },
 	                        'Player 2'
 	                    ),
-	                    React.createElement(KahalaPit, { value: this.state.gameStatus.statusPerPlayer.TWO.stonesInKahalaPit }),
+	                    React.createElement(KalahaPit, { value: this.state.gameStatus.statusPerPlayer.TWO.stonesInKalahaPit }),
 	                    this.renderNormalPit('TWO', 5),
 	                    this.renderNormalPit('TWO', 4),
 	                    this.renderNormalPit('TWO', 3),
@@ -223,7 +223,7 @@
 	                    this.renderNormalPit('ONE', 3),
 	                    this.renderNormalPit('ONE', 4),
 	                    this.renderNormalPit('ONE', 5),
-	                    React.createElement(KahalaPit, { value: this.state.gameStatus.statusPerPlayer.ONE.stonesInKahalaPit })
+	                    React.createElement(KalahaPit, { value: this.state.gameStatus.statusPerPlayer.ONE.stonesInKalahaPit })
 	                ),
 	                React.createElement(
 	                    'button',
@@ -302,7 +302,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n    font: 14px \"Century Gothic\", Futura, sans-serif;\n    margin: 20px;\n}\n\nol, ul {\n    padding-left: 30px;\n}\n\n.board-row:after {\n    clear: both;\n    content: \"\";\n    display: table;\n}\n\n.status {\n    margin-bottom: 10px;\n}\n\n.player-name {\n    margin: 10px;\n    float: left;\n}\n\n.normal-pit {\n    background: #ffffff;\n    border: 1px solid #999;\n    float: left;\n    font-size: 24px;\n    font-weight: normal;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 34px;\n}\n\n.kahala-pit {\n    background: #ffff00;\n    border: 1px solid #999;\n    float: left;\n    font-size: 28px;\n    font-weight: bold;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 67px;\n}\n\n.square:focus {\n    outline: none;\n}\n\n.kbd-navigation .square:focus {\n    background: #ddd;\n}\n\n.game {\n    display: flex;\n    flex-direction: row;\n}\n\n.game-info {\n    margin-left: 20px;\n}\n", ""]);
+	exports.push([module.id, "body {\n    font: 14px \"Century Gothic\", Futura, sans-serif;\n    margin: 20px;\n}\n\nol, ul {\n    padding-left: 30px;\n}\n\n.board-row:after {\n    clear: both;\n    content: \"\";\n    display: table;\n}\n\n.status {\n    margin-bottom: 10px;\n}\n\n.player-name {\n    margin: 10px;\n    float: left;\n}\n\n.normal-pit {\n    background: #ffffff;\n    border: 1px solid #999;\n    float: left;\n    font-size: 24px;\n    font-weight: normal;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 34px;\n}\n\n.kalaha-pit {\n    background: #ffff00;\n    border: 1px solid #999;\n    float: left;\n    font-size: 28px;\n    font-weight: bold;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 67px;\n}\n\n.square:focus {\n    outline: none;\n}\n\n.kbd-navigation .square:focus {\n    background: #ddd;\n}\n\n.game {\n    display: flex;\n    flex-direction: row;\n}\n\n.game-info {\n    margin-left: 20px;\n}\n", ""]);
 	
 	// exports
 
