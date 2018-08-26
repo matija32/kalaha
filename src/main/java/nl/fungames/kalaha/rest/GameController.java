@@ -15,7 +15,15 @@ import nl.fungames.kalaha.core.GameStatus;
 @RequestMapping("/api")
 public class GameController {
 
-    private Game game = new Game();
+    private final Game game;
+
+    GameController() {
+        this(new Game());
+    }
+
+    GameController(Game game) {
+        this.game = game;
+    }
 
     @RequestMapping(value = "/")
     public String index() {
@@ -28,7 +36,7 @@ public class GameController {
     }
 
     @PostMapping(path = "/play")
-    public ResponseEntity<String> play(@RequestBody MoveDTO move){
+    public ResponseEntity<String> play(@RequestBody MoveDto move){
         game.play(move.getPlayer(), move.getPitId());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
