@@ -1,6 +1,7 @@
 package nl.fungames.kalaha.core;
 
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -39,32 +40,60 @@ public class Game {
         if (!lastFilledPit.isKalaha()) {
             playerThatHasTheTurn = playerThatHasTheTurn == Player.ONE ? Player.TWO : Player.ONE;
         }
+
+        if (!thereAreStonesInNormalPitsOf(player)){
+            moveAllToKalahas(Player.ONE);
+            moveAllToKalahas(Player.TWO);
+        }
+    }
+
+    private void moveAllToKalahas(Player player) {
+        board.getNormalPitsFor(player).forEach(pit -> board.moveStonesToOwnKalaha(pit));
     }
 
     public GameStatus getStatus(){
-        GameStatus gameStatus = new GameStatus();
+        Map<Player, PlayerStatus> statusPerPlayer = new HashMap<>();
+        statusPerPlayer.put(Player.ONE, createPlayerStatus(Player.ONE));
+        statusPerPlayer.put(Player.TWO, createPlayerStatus(Player.TWO));
 
-        gameStatus.getStatusPerPlayer().put(
-                Player.ONE,
-                new PlayerStatus(
-                        board.getKalahaPitFor(Player.ONE).countStones(),
-                        board.getNormalPitsFor(Player.ONE).stream().map(Pit::countStones).collect(Collectors.toList())));
+        if (gameIsOngoing()) {
+            return new GameStatus(Messages.GAME_ONGOING, statusPerPlayer);
+        }
+        else {
+            return new GameStatus(determineEndgameMesage(), statusPerPlayer);
+        }
+    }
 
-        gameStatus.getStatusPerPlayer().put(
-                Player.TWO,
-                new PlayerStatus(
-                        board.getKalahaPitFor(Player.TWO).countStones(),
-                        board.getNormalPitsFor(Player.TWO).stream().map(Pit::countStones).collect(Collectors.toList())));
+    private String determineEndgameMesage() {
+        int player1Kahala = board.getKalahaPitFor(Player.ONE).countStones();
+        int player2Kahala = board.getKalahaPitFor(Player.TWO).countStones();
+        if (player1Kahala > player2Kahala) {
+            return Messages.ENDGAME_PLAYER_1_WON;
+        }
+        if (player1Kahala < player2Kahala) {
+            return Messages.ENDGAME_PLAYER_2_WON;
+        }
+        else {
+            return Messages.ENDGAME_DRAW;
+        }
+    }
 
-        gameStatus.setFinished(false);
-        gameStatus.setMessage("The game is ON!");
-        gameStatus.setNextOneToPlay(whoseTurnIsIt());
+    private boolean gameIsOngoing() {
+        return thereAreStonesInNormalPitsOf(Player.ONE) && thereAreStonesInNormalPitsOf(Player.TWO);
+    }
 
-        return gameStatus;
+    private boolean thereAreStonesInNormalPitsOf(Player player) {
+        return board.getNormalPitsFor(player).stream().anyMatch(pit -> pit.countStones() > 0);
+    }
+
+    private PlayerStatus createPlayerStatus(Player player) {
+        return new PlayerStatus(
+                board.getKalahaPitFor(player).countStones(),
+                board.getNormalPitsFor(player).stream().map(Pit::countStones).collect(Collectors.toList()),
+                board.getNormalPitsFor(player).stream().map(pit -> pit.countStones() > 0 && playerThatHasTheTurn == player).collect(Collectors.toList()));
     }
 
     Player whoseTurnIsIt() {
         return playerThatHasTheTurn;
     }
-
 }

@@ -6,11 +6,14 @@ import './game.css';
 
 class NormalPit extends React.Component {
     render() {
+        let normalPitStyling = this.props.allowedToSowFrom ? "normal-pit-sowable" : "normal-pit-not-sowable"
+
         return (
-            <button className="normal-pit" onClick={() => this.props.onClick()} disabled={false}>
+            <button className={normalPitStyling} onClick={() => this.props.onClick()} disabled={!this.props.allowedToSowFrom}>
                 {this.props.value}
             </button>
         );
+
     }
 }
 
@@ -39,14 +42,18 @@ class Game extends React.Component {
     }
 
     startNewGame() {
-        axios.post('/api/restart').then(() => this.refreshGameStatus());
+        axios.post('/api/restart')
+        .catch(error => alert(error.message))
+        .then(() => this.refreshGameStatus());
     }
 
     handleClickOnNormalPit(player, pitId){
         axios.post('/api/play', {
             player: player,
             pitId: pitId
-        }).then(() => this.refreshGameStatus())
+        })
+        .catch(error => alert(error.message))
+        .then(() => this.refreshGameStatus())
     }
 
     componentDidMount() {
@@ -56,6 +63,7 @@ class Game extends React.Component {
     renderNormalPit(player, pitIndex){
         return <NormalPit
             value={this.state.gameStatus.statusPerPlayer[player].stonesInNormalPits[pitIndex]}
+            allowedToSowFrom={this.state.gameStatus.statusPerPlayer[player].allowedToSeedFromNormalPit[pitIndex]}
             onClick={() => this.handleClickOnNormalPit(player, pitIndex)}/>
     }
 

@@ -74,11 +74,13 @@
 	        value: function render() {
 	            var _this2 = this;
 	
+	            var normalPitStyling = this.props.allowedToSowFrom ? "normal-pit-sowable" : "normal-pit-not-sowable";
+	
 	            return React.createElement(
 	                'button',
-	                { className: 'normal-pit', onClick: function onClick() {
+	                { className: normalPitStyling, onClick: function onClick() {
 	                        return _this2.props.onClick();
-	                    }, disabled: false },
+	                    }, disabled: !this.props.allowedToSowFrom },
 	                this.props.value
 	            );
 	        }
@@ -136,7 +138,9 @@
 	        value: function startNewGame() {
 	            var _this6 = this;
 	
-	            axios.post('/api/restart').then(function () {
+	            axios.post('/api/restart').catch(function (error) {
+	                return alert(error.message);
+	            }).then(function () {
 	                return _this6.refreshGameStatus();
 	            });
 	        }
@@ -148,6 +152,8 @@
 	            axios.post('/api/play', {
 	                player: player,
 	                pitId: pitId
+	            }).catch(function (error) {
+	                return alert(error.message);
 	            }).then(function () {
 	                return _this7.refreshGameStatus();
 	            });
@@ -164,6 +170,7 @@
 	
 	            return React.createElement(NormalPit, {
 	                value: this.state.gameStatus.statusPerPlayer[player].stonesInNormalPits[pitIndex],
+	                allowedToSowFrom: this.state.gameStatus.statusPerPlayer[player].allowedToSeedFromNormalPit[pitIndex],
 	                onClick: function onClick() {
 	                    return _this8.handleClickOnNormalPit(player, pitIndex);
 	                } });
@@ -302,7 +309,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n    font: 14px \"Century Gothic\", Futura, sans-serif;\n    margin: 20px;\n}\n\nol, ul {\n    padding-left: 30px;\n}\n\n.board-row:after {\n    clear: both;\n    content: \"\";\n    display: table;\n}\n\n.status {\n    margin-bottom: 10px;\n}\n\n.player-name {\n    margin: 10px;\n    float: left;\n}\n\n.normal-pit {\n    background: #ffffff;\n    border: 1px solid #999;\n    float: left;\n    font-size: 24px;\n    font-weight: normal;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 34px;\n}\n\n.kalaha-pit {\n    background: #ffff00;\n    border: 1px solid #999;\n    float: left;\n    font-size: 28px;\n    font-weight: bold;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 67px;\n}\n\n.square:focus {\n    outline: none;\n}\n\n.kbd-navigation .square:focus {\n    background: #ddd;\n}\n\n.game {\n    display: flex;\n    flex-direction: row;\n}\n\n.game-info {\n    margin-left: 20px;\n}\n", ""]);
+	exports.push([module.id, "body {\n    font: 14px \"Century Gothic\", Futura, sans-serif;\n    margin: 20px;\n}\n\nol, ul {\n    padding-left: 30px;\n}\n\n.board-row:after {\n    clear: both;\n    content: \"\";\n    display: table;\n}\n\n.status {\n    margin-bottom: 10px;\n}\n\n.player-name {\n    margin: 10px;\n    float: left;\n}\n\n.normal-pit-not-sowable {\n    background: #5f5c60;\n    border: 1px solid #999;\n    float: left;\n    font-size: 24px;\n    font-weight: normal;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 34px;\n}\n\n.normal-pit-sowable {\n    background: #ffffff;\n    border: 1px solid #999;\n    float: left;\n    font-size: 24px;\n    font-weight: normal;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 34px;\n}\n\n.kalaha-pit {\n    background: #ffff00;\n    border: 1px solid #999;\n    float: left;\n    font-size: 28px;\n    font-weight: bold;\n    line-height: 34px;\n    height: 34px;\n    margin-right: -1px;\n    margin-top: -1px;\n    padding: 0;\n    text-align: center;\n    width: 67px;\n}\n\n.square:focus {\n    outline: none;\n}\n\n.kbd-navigation .square:focus {\n    background: #ddd;\n}\n\n.game {\n    display: flex;\n    flex-direction: row;\n}\n\n.game-info {\n    margin-left: 20px;\n}\n", ""]);
 	
 	// exports
 

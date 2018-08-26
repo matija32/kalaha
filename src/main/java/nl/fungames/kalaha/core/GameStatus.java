@@ -4,15 +4,16 @@ package nl.fungames.kalaha.core;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
+@AllArgsConstructor
 public class GameStatus {
 
-    private boolean finished = false;
-    private String message = "";
-    private Map<Player, PlayerStatus> statusPerPlayer = new HashMap<>();
-    private Player nextOneToPlay;
+    private String message;
+    private Map<Player, PlayerStatus> statusPerPlayer;
+
+
 }
