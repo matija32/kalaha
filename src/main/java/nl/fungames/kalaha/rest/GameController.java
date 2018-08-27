@@ -15,15 +15,7 @@ import nl.fungames.kalaha.core.GameStatus;
 @RequestMapping("/api")
 public class GameController {
 
-    private final Game game;
-
-    GameController() {
-        this(new Game());
-    }
-
-    GameController(Game game) {
-        this.game = game;
-    }
+    private Game game = new Game();
 
     @RequestMapping(value = "/")
     public String index() {
