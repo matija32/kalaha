@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class PitTest {
+public class PitTests {
 
     @Test
     public void testNoStonesInitially(){

@@ -17,7 +17,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
-public class GameTest {
+public class GameTests {
 
     @Test
     public void testGameStatus_Initial(){

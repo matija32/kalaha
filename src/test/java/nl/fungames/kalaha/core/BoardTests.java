@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import org.junit.Test;
 
-public class BoardTest {
+public class BoardTests {
 
     @Test
     public void testDefaultInitialBoardSetup() {
