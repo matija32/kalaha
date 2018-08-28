@@ -30,7 +30,7 @@ public class GameController {
     @PostMapping(path = "/play")
     public ResponseEntity<String> play(@RequestBody MoveDto move){
         game.play(move.getPlayer(), move.getPitId());
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
     @PostMapping(path = "/restart")
