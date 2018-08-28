@@ -1,7 +1,7 @@
 # Kalaha
 
 # How to run it?
-* To build, run <code>mvn clean install</code> from the command line
+* To build, run <code>mvn clean install -DskipTests</code> from the command line
 * To start the game, run <code>./mvnw spring-boot:run</code> from the command line
 * To play the game, open <code>localhost:8000</code> in your browser
 
