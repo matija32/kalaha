@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/matija32/kalaha",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.3",
     "css-loader": "^1.0.0",
     "react": "^15.6.2",
     "react-bootstrap": "^0.32.1",
